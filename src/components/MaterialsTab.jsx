@@ -75,17 +75,18 @@ export default function MaterialsTab({ projectId }) {
             <div key={m.id} style={{ background: '#fff', border: '1px solid var(--border)', borderLeft: '3px solid var(--navy)', borderRadius: 'var(--radius-sm)', padding: '12px 14px', position: 'relative' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
                 <span style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>{m.item}</span>
-                <span style={{ fontSize: '16px', fontWeight: 800, color: 'var(--danger)', fontFamily: "'Barlow Condensed', sans-serif" }}>{fmt(m.total)}</span>
+                <span style={{ fontSize: '16px', fontWeight: 800, color: 'var(--success)', fontFamily: "'Barlow Condensed', sans-serif" }}>{fmt(m.total)}</span>
               </div>
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '2px' }}>
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '6px' }}>
                 {m.qty} {m.unit} &times; {fmt(m.rate)}
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(m.date)} &nbsp;{m.time}</span>
-                {m.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic', maxWidth: '55%', textAlign: 'right', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.note}</span>}
+                <div>
+                  <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(m.date)} &nbsp;{m.time}</span>
+                  {m.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{m.note}</span>}
+                </div>
+                <Btn variant="danger" size="sm" style={{ padding: '3px 8px', fontSize: '11px' }} onClick={() => handleDelete(m.id)}>Delete</Btn>
               </div>
-              <button onClick={() => handleDelete(m.id)} style={{ position: 'absolute', top: '10px', right: '10px', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', fontSize: '16px', padding: '2px 4px', display: 'none' }} className="del-btn">&#x2715;</button>
-              <Btn variant="danger" size="sm" style={{ position: 'absolute', top: '10px', right: '10px', padding: '3px 8px', fontSize: '11px' }} onClick={() => handleDelete(m.id)}>Delete</Btn>
             </div>
           ))}
         </div>

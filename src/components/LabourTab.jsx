@@ -60,7 +60,7 @@ export default function LabourTab({ projectId }) {
             <div key={l.id} style={{ background: '#fff', border: '1px solid var(--border)', borderLeft: '3px solid var(--blue)', borderRadius: 'var(--radius-sm)', padding: '12px 14px', position: 'relative', paddingRight: '80px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
                 <span style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>{l.category}</span>
-                <span style={{ fontSize: '16px', fontWeight: 800, color: 'var(--danger)', fontFamily: "'Barlow Condensed', sans-serif" }}>{fmt(l.amount)}</span>
+                <span style={{ fontSize: '16px', fontWeight: 800, color: 'var(--success)', fontFamily: "'Barlow Condensed', sans-serif" }}>{fmt(l.amount)}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(l.date)} &nbsp;{l.time}</span>
