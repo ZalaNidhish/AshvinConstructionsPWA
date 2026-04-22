@@ -10,7 +10,7 @@ export default defineConfig({
       includeAssets: ['icon-192.png', 'icon-512.png', 'logo.png'],
       manifest: {
         name: 'Ashvin Construction',
-        short_name: 'Ashvin',
+        short_name: 'Ashvin Constructions',
         description: 'Construction Management App',
         theme_color: '#1A3C6E',
         background_color: '#FFFFFF',
