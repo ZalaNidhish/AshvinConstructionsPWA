@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  /* Brand palette derived from logo */
+  --navy:       #1A3C6E;
+  --navy-deep:  #0F2547;
+  --blue:       #2563B0;
+  --blue-mid:   #3B7DD8;
+  --blue-light: #EBF2FB;
+  --accent:     #2563B0;
+
+  /* Neutrals */
+  --white:      #FFFFFF;
+  --surface:    #F7F9FC;
+  --border:     #DDE4EE;
+  --border-strong: #C4CFDF;
+  --text-primary:  #0F1B2D;
+  --text-secondary:#4A5E78;
+  --text-muted:    #8496AD;
+
+  /* Semantic */
+  --success:    #1A6B3A;
+  --success-bg: #EBF5EE;
+  --danger:     #B91C1C;
+  --danger-bg:  #FEF2F2;
+  --warning:    #92400E;
+  --warning-bg: #FFFBEB;
+
+  /* Spacing & shape */
+  --radius-sm:  6px;
+  --radius:     10px;
+  --radius-lg:  14px;
+  --nav-height: 64px;
+  --header-h:   56px;
+  --shadow-sm:  0 1px 4px rgba(15,37,71,0.08);
+  --shadow:     0 2px 12px rgba(15,37,71,0.10);
+  --shadow-lg:  0 8px 32px rgba(15,37,71,0.14);
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: 'Barlow', sans-serif;
+  background: var(--surface);
+  color: var(--text-primary);
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font-family: 'Barlow', sans-serif; }
+input, select, textarea { font-family: 'Barlow', sans-serif; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
+
+/* Utility */
+.text-success { color: var(--success); }
+.text-danger  { color: var(--danger); }
+.text-muted   { color: var(--text-muted); }
