@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getByProject, addEntry, deleteEntry } from '../db.js';
+import { getByProject, addEntry, deleteEntry, updateEntry } from '../db.js';
 import { MATERIAL_ITEMS, UNITS, nowDateTime, fmt, fmtDate, fmtTime } from '../constants.js';
 import { Btn, Modal, Input, Select, EmptyState } from '../components/UI.jsx';
 
@@ -7,6 +7,7 @@ export default function MaterialsTab({ projectId }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [editId, setEditId] = useState(null);
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
@@ -19,9 +20,15 @@ export default function MaterialsTab({ projectId }) {
     setLoading(false);
   }
 
-  function openModal() {
-    const { date, time } = nowDateTime();
-    setForm({ item: MATERIAL_ITEMS[0], qty: '', unit: UNITS[0], rate: '', total: '', date, time, note: '' });
+  function openModal(entry = null) {
+    if (entry) {
+      setForm({ item: entry.item, qty: String(entry.qty), unit: entry.unit, rate: String(entry.rate), total: String(entry.total), date: entry.date, time: entry.time, note: entry.note || '' });
+      setEditId(entry.id);
+    } else {
+      const { date, time } = nowDateTime();
+      setForm({ item: MATERIAL_ITEMS[0], qty: '', unit: UNITS[0], rate: '', total: '', date, time, note: '' });
+      setEditId(null);
+    }
     setErrors({});
     setShowModal(true);
   }
@@ -45,10 +52,11 @@ export default function MaterialsTab({ projectId }) {
     if (Object.keys(errs).length) { setErrors(errs); return; }
     const qty = parseFloat(form.qty);
     const rate = parseFloat(form.rate);
-    await addEntry('materials', {
-      project_id: projectId, item: form.item, qty, unit: form.unit,
-      rate, total: qty * rate, date: form.date, time: form.time, note: form.note.trim(),
-    });
+    if (editId) {
+      await updateEntry('materials', { id: editId, project_id: projectId, item: form.item, qty, unit: form.unit, rate, total: qty * rate, date: form.date, time: form.time, note: form.note.trim() });
+    } else {
+      await addEntry('materials', { project_id: projectId, item: form.item, qty, unit: form.unit, rate, total: qty * rate, date: form.date, time: form.time, note: form.note.trim() });
+    }
     setShowModal(false);
     load();
   }
@@ -62,7 +70,7 @@ export default function MaterialsTab({ projectId }) {
   return (
     <div>
       <div style={{ marginBottom: '14px' }}>
-        <Btn fullWidth onClick={openModal} size="lg">+ Add Material Entry</Btn>
+        <Btn fullWidth onClick={() => openModal()} size="lg">+ Add Material Entry</Btn>
       </div>
 
       {loading ? (
@@ -72,7 +80,7 @@ export default function MaterialsTab({ projectId }) {
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           {items.map((m) => (
-            <div key={m.id} style={{ background: '#fff', border: '1px solid var(--border)', borderLeft: '3px solid var(--navy)', borderRadius: 'var(--radius-sm)', padding: '12px 14px', position: 'relative' }}>
+            <div key={m.id} style={{ background: '#fff', border: '1px solid var(--border)', borderLeft: '3px solid var(--navy)', borderRadius: 'var(--radius-sm)', padding: '12px 14px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
                 <span style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>{m.item}</span>
                 <span style={{ fontSize: '16px', fontWeight: 800, color: 'var(--success)', fontFamily: "'Barlow Condensed', sans-serif" }}>{fmt(m.total)}</span>
@@ -85,7 +93,10 @@ export default function MaterialsTab({ projectId }) {
                   <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(m.date)} &nbsp;{fmtTime(m.time)}</span>
                   {m.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{m.note}</span>}
                 </div>
-                <Btn variant="danger" size="sm" style={{ padding: '3px 8px', fontSize: '11px' }} onClick={() => handleDelete(m.id)}>Delete</Btn>
+                <div style={{ display: 'flex', gap: '6px' }}>
+                  <Btn size="sm" style={{ padding: '3px 10px', fontSize: '11px', background: 'var(--navy)', color: '#fff' }} onClick={() => openModal(m)}>Edit</Btn>
+                  <Btn variant="danger" size="sm" style={{ padding: '3px 10px', fontSize: '11px' }} onClick={() => handleDelete(m.id)}>Delete</Btn>
+                </div>
               </div>
             </div>
           ))}
@@ -93,7 +104,7 @@ export default function MaterialsTab({ projectId }) {
       )}
 
       {showModal && (
-        <Modal title="Add Material" onClose={() => setShowModal(false)}>
+        <Modal title={editId ? "Edit Material" : "Add Material"} onClose={() => setShowModal(false)}>
           <Select label="Item" value={form.item} onChange={set('item')} options={MATERIAL_ITEMS} />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
             <Input label="Quantity" type="number" value={form.qty} onChange={set('qty')} placeholder="0" error={errors.qty} />
@@ -106,7 +117,7 @@ export default function MaterialsTab({ projectId }) {
             <Input label="Time" type="time" value={form.time} onChange={set('time')} />
           </div>
           <Input label="Note (optional)" value={form.note} onChange={set('note')} placeholder="Any remarks..." />
-          <Btn fullWidth size="lg" onClick={handleSave}>Save Entry</Btn>
+          <Btn fullWidth size="lg" onClick={handleSave}>{editId ? 'Update Entry' : 'Save Entry'}</Btn>
         </Modal>
       )}
     </div>
