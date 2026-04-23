@@ -40,6 +40,10 @@ export default function SummaryTab({ projectId }) {
     const matGroups = {};
     mats.forEach((m) => { matGroups[m.item] = (matGroups[m.item] || 0) + (m.total || 0); });
 
+    // Group labour by category
+    const labGroups = {};
+    labs.forEach((l) => { labGroups[l.category] = (labGroups[l.category] || 0) + (l.amount || 0); });
+
     const totalMat = mats.reduce((a, m) => a + (m.total || 0), 0);
     const totalLab = labs.reduce((a, l) => a + (l.amount || 0), 0);
     const totalMisc = miscs.reduce((a, m) => a + (m.amount || 0), 0);
@@ -47,7 +51,7 @@ export default function SummaryTab({ projectId }) {
     const totalRec = pays.reduce((a, p) => a + (p.amount || 0), 0);
     const balance = totalRec - totalExp;
 
-    setData({ matGroups, labs, miscs, pays, totalMat, totalLab, totalMisc, totalExp, totalRec, balance });
+    setData({ matGroups, labGroups, miscs, pays, totalMat, totalLab, totalMisc, totalExp, totalRec, balance });
   }
 
   if (!data) return <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>Loading...</div>;
@@ -67,10 +71,10 @@ export default function SummaryTab({ projectId }) {
       {/* Labour breakdown */}
       <div style={{ background: '#fff', borderRadius: 'var(--radius)', border: '1px solid var(--border)', overflow: 'hidden' }}>
         <SectionHeader title="Labour" total={data.totalLab} />
-        {data.labs.length === 0 ? (
+        {Object.keys(data.labGroups).length === 0 ? (
           <div style={{ padding: '12px 14px', color: 'var(--text-muted)', fontSize: '13px' }}>No labour entries</div>
-        ) : data.labs.map((l) => (
-          <SummaryRow key={l.id} label={l.category} value={fmt(l.amount)} />
+        ) : Object.entries(data.labGroups).map(([category, total]) => (
+          <SummaryRow key={category} label={category} value={fmt(total)} />
         ))}
       </div>
 
@@ -100,7 +104,7 @@ export default function SummaryTab({ projectId }) {
         </div>
         <div style={{ background: data.balance >= 0 ? '#EBF5EE' : '#FEF2F2', borderBottom: 'none' }}>
           <SummaryRow
-            label={data.balance >= 0 ? 'Extra / Advance' : 'Balance Due'}
+            label={data.balance >= 0 ? 'Balance' : 'Balance Due'}
             value={fmt(Math.abs(data.balance))}
             bold
             accent={data.balance >= 0 ? 'var(--success)' : 'var(--danger)'}

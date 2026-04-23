@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getByProject, addEntry, deleteEntry } from '../db.js';
-import { PAYMENT_MODES, nowDateTime, fmt, fmtDate } from '../constants.js';
+import { PAYMENT_MODES, nowDateTime, fmt, fmtDate, fmtTime } from '../constants.js';
 import { Btn, Modal, Input, Select, EmptyState } from '../components/UI.jsx';
 
 export default function PaymentsTab({ projectId }) {
@@ -67,7 +67,7 @@ export default function PaymentsTab({ projectId }) {
                 <span style={{ fontSize: '18px', fontWeight: 800, color: 'var(--success)', fontFamily: "'Barlow Condensed', sans-serif" }}>{fmt(p.amount)}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(p.date)} &nbsp;{p.time}</span>
+                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(p.date)} &nbsp;{fmtTime(p.time)}</span>
                 {p.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic' }}>{p.note}</span>}
               </div>
               <Btn variant="danger" size="sm" style={{ position: 'absolute', top: '10px', right: '10px', padding: '3px 8px', fontSize: '11px' }} onClick={() => handleDelete(p.id)}>Delete</Btn>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getByProject, addEntry, deleteEntry } from '../db.js';
-import { nowDateTime, fmt, fmtDate } from '../constants.js';
+import { nowDateTime, fmt, fmtDate, fmtTime } from '../constants.js';
 import { Btn, Modal, Input, EmptyState } from '../components/UI.jsx';
 
 export default function MiscTab({ projectId }) {
@@ -66,7 +66,7 @@ export default function MiscTab({ projectId }) {
                 <span style={{ fontSize: '16px', fontWeight: 800, color: 'var(--danger)', fontFamily: "'Barlow Condensed', sans-serif" }}>{fmt(m.amount)}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(m.date)} &nbsp;{m.time}</span>
+                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(m.date)} &nbsp;{fmtTime(m.time)}</span>
                 {m.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic' }}>{m.note}</span>}
               </div>
               <Btn variant="danger" size="sm" style={{ position: 'absolute', top: '10px', right: '10px', padding: '3px 8px', fontSize: '11px' }} onClick={() => handleDelete(m.id)}>Delete</Btn>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getByProject, addEntry, deleteEntry } from '../db.js';
-import { MATERIAL_ITEMS, UNITS, nowDateTime, fmt, fmtDate } from '../constants.js';
+import { MATERIAL_ITEMS, UNITS, nowDateTime, fmt, fmtDate, fmtTime } from '../constants.js';
 import { Btn, Modal, Input, Select, EmptyState } from '../components/UI.jsx';
 
 export default function MaterialsTab({ projectId }) {
@@ -82,7 +82,7 @@ export default function MaterialsTab({ projectId }) {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(m.date)} &nbsp;{m.time}</span>
+                  <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(m.date)} &nbsp;{fmtTime(m.time)}</span>
                   {m.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{m.note}</span>}
                 </div>
                 <Btn variant="danger" size="sm" style={{ padding: '3px 8px', fontSize: '11px' }} onClick={() => handleDelete(m.id)}>Delete</Btn>

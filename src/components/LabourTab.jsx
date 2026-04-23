@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getByProject, addEntry, deleteEntry } from '../db.js';
-import { LABOUR_CATEGORIES, nowDateTime, fmt, fmtDate } from '../constants.js';
+import { LABOUR_CATEGORIES, nowDateTime, fmt, fmtDate, fmtTime } from '../constants.js';
 import { Btn, Modal, Input, Select, EmptyState } from '../components/UI.jsx';
 
 export default function LabourTab({ projectId }) {
@@ -63,7 +63,7 @@ export default function LabourTab({ projectId }) {
                 <span style={{ fontSize: '16px', fontWeight: 800, color: 'var(--success)', fontFamily: "'Barlow Condensed', sans-serif" }}>{fmt(l.amount)}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(l.date)} &nbsp;{l.time}</span>
+                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(l.date)} &nbsp;{fmtTime(l.time)}</span>
                 {l.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic' }}>{l.note}</span>}
               </div>
               <Btn variant="danger" size="sm" style={{ position: 'absolute', top: '10px', right: '10px', padding: '3px 8px', fontSize: '11px' }} onClick={() => handleDelete(l.id)}>Delete</Btn>
