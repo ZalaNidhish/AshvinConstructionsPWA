@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../assets/logo.png';
-import { getPassword, setPassword } from '../components/AppLock.jsx';
+import { checkPin, setPassword } from '../components/AppLock.jsx';
 
 export default function Settings() {
   const [mode, setMode] = useState(null); // null | 'change-pin'
@@ -17,17 +17,19 @@ export default function Settings() {
     setError(''); setSuccess('');
   }
 
-  function handleChangePinNext() {
+  // Now async — checkPin hashes before comparing
+  async function handleChangePinNext() {
     setError('');
     if (step === 'current') {
-      if (currentPin !== getPassword()) { setError('Incorrect current PIN'); return; }
+      const ok = await checkPin(currentPin);
+      if (!ok) { setError('Incorrect current PIN'); return; }
       setStep('new');
     } else if (step === 'new') {
       if (!/^\d{4}$/.test(newPin)) { setError('PIN must be exactly 4 digits'); return; }
       setStep('confirm');
     } else if (step === 'confirm') {
       if (confirmPin !== newPin) { setError('PINs do not match'); return; }
-      setPassword(newPin);
+      await setPassword(newPin);  // stores hash
       setSuccess('PIN changed successfully!');
       setTimeout(resetPinFlow, 1800);
     }
@@ -155,6 +157,7 @@ export default function Settings() {
           ['App Version', '1.0.0'],
           ['Works Offline', 'Enabled'],
           ['Data Storage', 'On-device only'],
+          ['PIN Security', 'SHA-256 hashed'],
         ].map(([label, value]) => (
           <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '13px 16px', borderBottom: '1px solid var(--border)' }}>
             <span style={{ fontSize: '14px', color: 'var(--text-primary)' }}>{label}</span>
