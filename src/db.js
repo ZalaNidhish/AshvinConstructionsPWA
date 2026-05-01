@@ -60,3 +60,16 @@ export async function updateEntry(store, data) {
   const db = await getDB();
   return db.put(store, data);
 }
+
+export async function deleteProject(id) {
+  const db = await getDB();
+  const tx = db.transaction(['projects', 'materials', 'labour', 'payments', 'misc'], 'readwrite');
+  await Promise.all([
+    tx.objectStore('projects').delete(id),
+    tx.objectStore('materials').index('project_id').getAllKeys(id).then(keys => Promise.all(keys.map(k => tx.objectStore('materials').delete(k)))),
+    tx.objectStore('labour').index('project_id').getAllKeys(id).then(keys => Promise.all(keys.map(k => tx.objectStore('labour').delete(k)))),
+    tx.objectStore('payments').index('project_id').getAllKeys(id).then(keys => Promise.all(keys.map(k => tx.objectStore('payments').delete(k)))),
+    tx.objectStore('misc').index('project_id').getAllKeys(id).then(keys => Promise.all(keys.map(k => tx.objectStore('misc').delete(k)))),
+    tx.done,
+  ]);
+}
