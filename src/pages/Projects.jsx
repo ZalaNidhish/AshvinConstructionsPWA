@@ -234,7 +234,7 @@ async function confirmDelete() {
                 >
                   ↓ Export
                 </Btn>
-                <Btn
+                {/* <Btn
                   variant="primary"
                   size="sm"
                   onClick={(e) => {
@@ -243,7 +243,7 @@ async function confirmDelete() {
                   }}
                 >
                   Open
-                </Btn>
+                </Btn> */}
                 <Btn variant="ghost" size="sm" style={{ color: '#DC2626' }} onClick={(e) => openDelete(p, e)}>Delete</Btn>
               </div>
             </Card>
