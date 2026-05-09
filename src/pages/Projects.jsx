@@ -186,7 +186,7 @@ async function confirmDelete() {
                   <div
                     style={{
                       fontSize: "13px",
-                      color: "var(--text-muted)",
+                      color: "var(--text-primary)",
                       marginBottom: "2px",
                     }}
                   >
@@ -194,7 +194,7 @@ async function confirmDelete() {
                   </div>
                   {p.phone && (
                     <div
-                      style={{ fontSize: "12px", color: "var(--text-muted)" }}
+                      style={{ fontSize: "12px", color: "var(--text-primary)" }}
                     >
                       {p.phone}
                     </div>
@@ -203,7 +203,7 @@ async function confirmDelete() {
                     <div
                       style={{
                         fontSize: "12px",
-                        color: "var(--text-muted)",
+                        color: "var(--text-primary)",
                         marginTop: "2px",
                       }}
                     >

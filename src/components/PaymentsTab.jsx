@@ -76,7 +76,7 @@ export default function PaymentsTab({ projectId }) {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(p.date)} &nbsp;{fmtTime(p.time)}</span>
+                  <span style={{ fontSize: '14px', color: 'var(--text-primary)' }}>{fmtDate(p.date)} &nbsp;{fmtTime(p.time)}</span>
                   {p.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{p.note}</span>}
                 </div>
                 <div style={{ display: 'flex', gap: '6px' }}>

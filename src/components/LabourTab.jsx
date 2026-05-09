@@ -72,7 +72,7 @@ export default function LabourTab({ projectId }) {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(l.date)} &nbsp;{fmtTime(l.time)}</span>
+                  <span style={{ fontSize: '14px', color: 'var(--text-primary)' }}>{fmtDate(l.date)} &nbsp;{fmtTime(l.time)}</span>
                   {l.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{l.note}</span>}
                 </div>
                 <div style={{ display: 'flex', gap: '6px' }}>

@@ -75,7 +75,7 @@ export default function MiscTab({ projectId }) {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{fmtDate(m.date)} &nbsp;{fmtTime(m.time)}</span>
+                  <span style={{ fontSize: '14px', color: 'var(--text-primary)' }}>{fmtDate(m.date)} &nbsp;{fmtTime(m.time)}</span>
                   {m.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{m.note}</span>}
                 </div>
                 <div style={{ display: 'flex', gap: '6px' }}>
