@@ -85,19 +85,21 @@ export default function MaterialsTab({ projectId }) {
                 <span style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>{m.item}</span>
                 <span style={{ fontSize: '16px', fontWeight: 800, color: 'var(--success)', fontFamily: "'Barlow Condensed', sans-serif" }}>{fmt(m.total)}</span>
               </div>
-              <div style={{ fontSize: '14px', color: 'var(--text-primary)', marginBottom: '6px' }}>
+              <div style={{ fontSize: '12px', color: 'var(--text-primary)', marginBottom: '6px' }}>
                 {m.qty} {m.unit} &times; {fmt(m.rate)}
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <span style={{ fontSize: '14px', color: 'var(--text-primary)' }}>{fmtDate(m.date)} &nbsp;{fmtTime(m.time)}</span>
-                  {m.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{m.note}</span>}
+                  <span style={{ fontSize: '12px', color: 'var(--text-primary)' }}>{fmtDate(m.date)} &nbsp;{fmtTime(m.time)}</span>
                 </div>
                 <div style={{ display: 'flex', gap: '6px' }}>
                   <Btn size="sm" style={{ padding: '3px 10px', fontSize: '11px', background: 'var(--navy)', color: '#fff' }} onClick={() => openModal(m)}>Edit</Btn>
                   <Btn variant="danger" size="sm" style={{ padding: '3px 10px', fontSize: '11px' }} onClick={() => handleDelete(m.id)}>Delete</Btn>
                 </div>
               </div>
+              <div>
+                  {m.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{m.note}</span>}
+                </div>
             </div>
           ))}
         </div>
