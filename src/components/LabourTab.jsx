@@ -80,7 +80,7 @@ export default function LabourTab({ projectId }) {
                 </div>
               </div>
               <div>
-                  {l.note && <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{l.note}</span>}
+                  {l.note && <span style={{ fontSize: '12px', color: 'var(--accent)', marginLeft: '8px' }}><b>Note : </b>{l.note}</span>}
               </div>
             </div>
           ))}

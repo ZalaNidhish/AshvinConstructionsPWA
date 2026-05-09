@@ -84,7 +84,7 @@ export default function PaymentsTab({ projectId }) {
                 </div>
               </div>
               <div>
-                  {p.note && <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{p.note}</span>}
+                  {p.note && <span style={{ fontSize: '12px', color: 'var(--accent)', marginLeft: '8px' }}><b>Note : </b>{p.note}</span>}
               </div>
             </div>
           ))}
