@@ -73,12 +73,14 @@ export default function LabourTab({ projectId }) {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <span style={{ fontSize: '14px', color: 'var(--text-primary)' }}>{fmtDate(l.date)} &nbsp;{fmtTime(l.time)}</span>
-                  {l.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{l.note}</span>}
                 </div>
                 <div style={{ display: 'flex', gap: '6px' }}>
                   <Btn size="sm" style={{ padding: '3px 10px', fontSize: '11px', background: 'var(--navy)', color: '#fff' }} onClick={() => openModal(l)}>Edit</Btn>
                   <Btn variant="danger" size="sm" style={{ padding: '3px 10px', fontSize: '11px' }} onClick={() => handleDelete(l.id)}>Delete</Btn>
                 </div>
+              </div>
+              <div>
+                  {l.note && <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{l.note}</span>}
               </div>
             </div>
           ))}

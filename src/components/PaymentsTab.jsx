@@ -77,12 +77,14 @@ export default function PaymentsTab({ projectId }) {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <span style={{ fontSize: '14px', color: 'var(--text-primary)' }}>{fmtDate(p.date)} &nbsp;{fmtTime(p.time)}</span>
-                  {p.note && <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{p.note}</span>}
                 </div>
                 <div style={{ display: 'flex', gap: '6px' }}>
                   <Btn size="sm" style={{ padding: '3px 10px', fontSize: '11px', background: 'var(--navy)', color: '#fff' }} onClick={() => openModal(p)}>Edit</Btn>
                   <Btn variant="danger" size="sm" style={{ padding: '3px 10px', fontSize: '11px' }} onClick={() => handleDelete(p.id)}>Delete</Btn>
                 </div>
+              </div>
+              <div>
+                  {p.note && <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontStyle: 'italic', marginLeft: '8px' }}>{p.note}</span>}
               </div>
             </div>
           ))}
